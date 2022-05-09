@@ -10,6 +10,19 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     Create post
+                    <div class="">
+                        <form action="">
+                            <div class="flex flex-col">
+                                <label for="heading">Heading</label>
+                                <input name="heading" id="heading" type="text" class="rounded-lg">
+                            </div>
+                            <div class="flex flex-col mt-3">
+                                <label for="content">Post</label>
+                                <textarea name="content" id="content" cols="100" rows="10" class="rounded-lg resize-none"></textarea>
+                            </div>
+                            <button class="mt-3 border-solid border-2 border-black rounded-full p-1 hover:bg-slate-400" type="submit">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
