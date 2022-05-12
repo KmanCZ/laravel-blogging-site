@@ -21,4 +21,10 @@ class PostController extends Controller
 
         return redirect("/home");
     }
+
+    public function show(Post $post) {
+        return view("posts.show", [
+            "post" => $post
+        ]);
+    }
 }
