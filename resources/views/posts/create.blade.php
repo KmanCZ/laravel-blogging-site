@@ -10,8 +10,8 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     Create post
-                    <div class="">
-                        <form action="/posts" method="POST">
+                    <div>
+                        <form action="/posts" method="POST" id="createPostForm">
                             @csrf
                             <div class="flex flex-col">
                                 <label for="heading">Heading</label>
@@ -21,13 +21,15 @@
                                 @enderror
                             </div>
                             <div class="flex flex-col mt-3">
-                                <label for="content">Post</label>
-                                <textarea name="content" id="content" cols="100" rows="10" class="rounded-lg resize-none">{{old("content")}}</textarea>
-                                @error("content")
-                                <p class="text-red-600">{{$message}}</p>
-                                @enderror
-                            </div>
-                            <button class="mt-3 border-solid border-2 border-black rounded-full p-1 hover:bg-slate-400" type="submit">Submit</button>
+                                <label for="editor">Post</label>
+                                <div id="editor" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{old("content")}}</div>
+                                <input type="hidden" name="content" id="content">
+                                <div>
+                                    @error("content")
+                                    <p class="text-red-600">{{$message}}</p>
+                                    @enderror
+                                </div>
+                                <button class="mt-3 border-solid border-2 border-black rounded-full p-1 hover:bg-slate-400" type="submit">Submit</button>
                         </form>
                     </div>
                 </div>
