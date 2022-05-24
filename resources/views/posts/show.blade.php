@@ -12,6 +12,10 @@
                 <div class="p-6 bg-white border-b border-gray-200 markdown">
                     {!! \Illuminate\Support\Str::markdown($post->content) !!}
                 </div>
+                <div class="flex justify-end mr-5 my-2">
+                    <a href="/posts/{{$post->id}}/edit" class="inline-block rounded-lg bg-blue-500 text-white hover:bg-blue-700 py-1 px-3">Edit</a>
+                </div>
+
             </div>
         </div>
     </div>

@@ -37,4 +37,22 @@ class PostController extends Controller
             "post" => $post
         ]);
     }
+
+    //Show post edit form
+    public function edit(Post $post) {
+        return view("posts.edit", [
+            "post" => $post
+        ]);
+    }
+
+    //Update post
+    public function update(Post $post) {
+        $formFields = request()->validate([
+            "content" => "required"
+        ]);
+
+        $post->update($formFields);
+
+        return redirect("/posts/".$post->id);
+    }
 }

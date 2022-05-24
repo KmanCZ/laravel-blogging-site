@@ -12,4 +12,10 @@ Route::middleware('auth')->group(function() {
 
     //View Post Route
     Route::get("/posts/{post}", [PostController::class, "show"]);
+
+    //Show edit form for a post route
+    Route::get("/posts/{post}/edit", [PostController::class, "edit"]);
+
+    //Update Post route
+    Route::put("/posts/{post}", [PostController::class, "update"]);
 });
