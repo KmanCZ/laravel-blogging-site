@@ -33,10 +33,10 @@
 
     /* Codes */
     .markdown code {
-        @apply bg-slate-200;
+        @apply bg-slate-300;
     }
     .markdown pre {
-        @apply bg-slate-200 max-w-fit;
+        @apply bg-slate-300 max-w-fit;
     }
 
     /* Table */

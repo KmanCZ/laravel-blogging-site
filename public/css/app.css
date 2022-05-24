@@ -636,14 +636,14 @@ select {
 /* Codes */
 .markdown code {
   --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
 }
 .markdown pre {
   max-width: -webkit-fit-content;
   max-width: -moz-fit-content;
   max-width: fit-content;
   --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
 }
 /* Table */
 .markdown table {
