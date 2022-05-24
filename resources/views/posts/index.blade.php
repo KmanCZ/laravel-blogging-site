@@ -11,5 +11,8 @@
             <x-post-card :post="$post" />
             @endforeach
         </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            {{$posts->links()}}
+        </div>
     </div>
 </x-app-layout>
