@@ -23,7 +23,7 @@ class PostController extends Controller
     //Store post to db
     public function store() {
         $validatedData = request()->validate([
-            "heading" => "required",
+            "heading" => ["required", "unique:posts,heading"],
             "content" => "required"
         ]);
 
