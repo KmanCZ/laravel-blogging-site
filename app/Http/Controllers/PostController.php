@@ -31,7 +31,7 @@ class PostController extends Controller
 
         Post::create($validatedData);
 
-        return redirect("/home");
+        return redirect("/posts/".$validatedData["slug"]);
     }
 
     //Show specific post
