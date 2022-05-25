@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,12 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $heading = $this->faker->sentence();
+        $slug = Str::slug($heading);
+
         return [
-            "heading" => $this->faker->sentence(),
+            "heading" => $heading,
+            "slug" => $slug,
             "content" => $this->faker->paragraph(6)
         ];
     }
