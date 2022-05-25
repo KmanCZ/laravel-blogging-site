@@ -1,8 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{$post->heading}}
-
+            <x-slot name="pName">
+                {{$post->heading}}
+            </x-slot>
         </h2>
     </x-slot>
 
