@@ -56,7 +56,7 @@ class PostController extends Controller
 
         $post->update($formFields);
 
-        return redirect("/posts/".$post->id);
+        return redirect("/posts/".$post->slug);
     }
 
     //Delete post
