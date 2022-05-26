@@ -13,7 +13,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     Create post
                     <div>
-                        <form action="/posts" method="POST" id="createPostForm">
+                        <form action="{{route('posts.store')}}" method="POST" id="createPostForm">
                             @csrf
                             <div class="flex flex-col">
                                 <label for="heading">Heading</label>

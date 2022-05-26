@@ -13,7 +13,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     Edit post
                     <div>
-                        <form action="/posts/{{$post->slug}}" method="POST" id="editPostForm">
+                        <form action="{{route('posts.update', ['post'=>$post->slug])}}" method="POST" id="editPostForm">
                             @csrf
                             @method("PUT")
                             <div class="flex flex-col">
