@@ -4,6 +4,7 @@
             <x-slot name="pName">
                 Create Post
             </x-slot>
+            Create Post
         </h2>
     </x-slot>
 

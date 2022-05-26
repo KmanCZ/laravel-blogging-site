@@ -4,6 +4,7 @@
             <x-slot name="pName">
                 {{$post->heading}}
             </x-slot>
+            {{$post->heading}}
         </h2>
     </x-slot>
 

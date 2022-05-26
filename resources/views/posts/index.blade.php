@@ -4,6 +4,7 @@
             <x-slot name="pName">
                 Home
             </x-slot>
+            Home
         </h2>
     </x-slot>
 

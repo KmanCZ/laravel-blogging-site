@@ -4,6 +4,7 @@
             <x-slot name="pName">
                 Edit Post
             </x-slot>
+            Edit Post
         </h2>
     </x-slot>
 
