@@ -22,3 +22,4 @@ Route::get('/home', [PostController::class, "index"])->middleware(['auth'])->nam
 
 require __DIR__.'/auth.php';
 require __DIR__."/post.php";
+require __DIR__."/user.php";
