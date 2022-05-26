@@ -46,7 +46,7 @@
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
-                        <x-dropdown-link :href="route('home')">
+                        <x-dropdown-link :href="route('users.show', ['user'=>auth()->user()])">
                             {{ __('Profile') }}
                         </x-dropdown-link>
                     </x-slot>
