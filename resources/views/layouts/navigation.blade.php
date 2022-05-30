@@ -79,16 +79,18 @@
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 Home
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
+                Create Post
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
         @auth
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
+            <x-responsive-nav-link :href="route('users.show', ['user'=>auth()->user()])">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
+            </x-responsive-nav-link>
             <div class="mt-3 space-y-1">
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
