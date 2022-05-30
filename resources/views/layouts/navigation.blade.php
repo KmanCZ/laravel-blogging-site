@@ -41,7 +41,12 @@
 
 
                     <x-slot name="content">
-                        <!-- Authentication -->
+                        <x-dropdown-link :href="route('users.show', ['user'=>auth()->user()])">
+                            {{ __('Profile') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('users.edit')">
+                            {{ __('User Settings') }}
+                        </x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
@@ -50,9 +55,6 @@
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
-                        <x-dropdown-link :href="route('users.show', ['user'=>auth()->user()])">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
                 @else
@@ -91,8 +93,10 @@
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('users.edit')">
+                {{ __('User Settings') }}
+            </x-responsive-nav-link>
             <div class="mt-3 space-y-1">
-                <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
