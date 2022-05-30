@@ -13,16 +13,22 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h3 class="text-xl font-bold mb-3">User Informations</h3>
-                    <form action="" method="POST">
+                    <form action="{{route("users.update", ["user"=>auth()->user()])}}" method="POST">
                         @csrf
                         @method("PUT")
                         <div class="flex flex-col">
                             <label for="name">Name</label>
                             <input value="{{auth()->user()->name}}" name="name" id="name" type="text" class="rounded-lg">
+                            @error("name")
+                            <p class="text-red-600">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="flex flex-col mt-3">
                             <label for="email">Email</label>
                             <input value="{{auth()->user()->email}}" name="email" id="email" type="email" class="rounded-lg">
+                            @error("email")
+                            <p class="text-red-600">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="flex flex-col mt-3">
                             <button class="mt-3 border-solid border-2 border-black rounded-full p-1 hover:bg-slate-400" type="submit">Update Informations</button>
