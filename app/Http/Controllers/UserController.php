@@ -13,4 +13,9 @@ class UserController extends Controller
             "user" => $user
         ]);
     }
+
+    //Show user settings page
+    public function edit() {
+        return view("users.edit");
+    }
 }
