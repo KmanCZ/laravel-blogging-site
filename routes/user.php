@@ -7,7 +7,10 @@ Route::middleware('auth')->group(function() {
     Route::get("users/settings", [UserController::class, "edit"])->name("users.edit");
 
     //Update user information
-    Route::put("/users/{user}", [UserController::class, "update"])->name("users.update");
+    Route::put("/users/{user}/update/informations", [UserController::class, "informationsUpdate"])->name("users.update.informations");
+
+    //Update user password
+    Route::patch("/users/{user}/update/password", [UserController::class, "passwordUpdate"])->name("users.update.password");
 });
 
 //Show user profile page

@@ -13,7 +13,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h3 class="text-xl font-bold mb-3">User Informations</h3>
-                    <form action="{{route("users.update", ["user"=>auth()->user()])}}" method="POST">
+                    <form action="{{route("users.update.informations", ["user"=>auth()->user()])}}" method="POST">
                         @csrf
                         @method("PUT")
                         <div class="flex flex-col">
@@ -39,16 +39,29 @@
             <div class="bg-white mt-5 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h3 class="text-xl font-bold mb-3">Change Password</h3>
-                    <form action="" method="POST">
+                    <form action="{{route("users.update.password", ["user"=>auth()->user()])}}" method="POST">
                         @csrf
-                        @method("PUT")
+                        @method("PATCH")
                         <div class="flex flex-col">
                             <label for="oldPassword">Old Password</label>
                             <input name="oldPassword" id="oldPassword" type="password" class="rounded-lg">
+                            @error("oldPassword")
+                            <p class="text-red-600">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="flex flex-col mt-3">
                             <label for="newPassword">New Password</label>
                             <input name="newPassword" id="newPassword" type="password" class="rounded-lg">
+                            @error("newPassword")
+                            <p class="text-red-600">{{$message}}</p>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col mt-3">
+                            <label for="newPassword_confirmation">New Password Confirmation</label>
+                            <input name="newPassword_confirmation" id="newPassword_confirmation" type="password" class="rounded-lg">
+                            @error("newPassword_confirmation")
+                            <p class="text-red-600">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="flex flex-col mt-3">
                             <button class="mt-3 border-solid border-2 border-black rounded-full p-1 hover:bg-slate-400" type="submit">Change Password</button>

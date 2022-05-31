@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
@@ -21,7 +24,7 @@ class UserController extends Controller
     }
 
     //Updates users informations
-    public function update() {
+    public function informationsUpdate() {
         $user = auth()->user();
 
         $userInfo = request()->validate([
@@ -32,6 +35,18 @@ class UserController extends Controller
         $user->name = $userInfo["name"];
         $user->email = $userInfo["email"];
         $user->save();
+
+        return back();
+    }
+
+    //Updates user password
+    public function passwordUpdate() {
+        $validatedData = request()->validate([
+            "newPassword" => ['required', 'confirmed', Rules\Password::defaults()],
+            'oldPassword' => ['required', new MatchOldPassword, Rules\Password::defaults()]
+        ]);
+
+        User::find(auth()->user()->id)->update(["password" => Hash::make($validatedData["newPassword"])]);
 
         return back();
     }
