@@ -25,16 +25,12 @@ class UserController extends Controller
 
     //Updates users informations
     public function informationsUpdate() {
-        $user = auth()->user();
-
         $userInfo = request()->validate([
             "name" => ['required', 'string', 'max:255'],
-            "email" => ['required', 'string', 'email', 'max:255', Rule::unique("users")->ignore($user)]
+            "email" => ['required', 'string', 'email', 'max:255', Rule::unique("users")->ignore(auth()->user())]
         ]);
 
-        $user->name = $userInfo["name"];
-        $user->email = $userInfo["email"];
-        $user->save();
+        User::find(auth()->user()->id)->update($userInfo);
 
         return back();
     }
