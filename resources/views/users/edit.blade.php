@@ -17,7 +17,7 @@
                         @csrf
                         @method("PUT")
                         <div class="flex flex-col">
-                            <label for="name">Name</label>
+                            <label for="name">Display Name</label>
                             <input value="{{auth()->user()->name}}" name="name" id="name" type="text" class="rounded-lg">
                             @error("name")
                             <p class="text-red-600">{{$message}}</p>
