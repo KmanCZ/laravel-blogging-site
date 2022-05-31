@@ -75,12 +75,15 @@
                     <div class="text-center">
                         <span class="text-red-600 font-bold bg-red-200 border border-red-700 rounded-lg p-1 inline-block">WARNING: This will delete PERMANENTLY your account and all posts associated with it!</span>
                     </div>
-                    <form action="" method="POST" class="mt-3">
+                    <form action="{{route("users.destroy", ["user"=>auth()->user()])}}" method="POST" class="mt-3">
                         @csrf
                         @method("DELETE")
                         <div class="flex flex-col">
                             <label for="password">Password</label>
                             <input name="password" id="password" type="password" class="rounded-lg">
+                            @error("password")
+                            <p class="text-red-600">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="flex flex-col mt-3">
                             <button class="mt-3 border-solid border-2 text-red-800 border-red-700 bg-red-200 rounded-full p-1 hover:bg-red-300" type="submit">Permanently Delete Account</button>

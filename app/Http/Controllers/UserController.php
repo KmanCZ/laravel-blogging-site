@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Rules\MatchOldPassword;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -45,5 +46,16 @@ class UserController extends Controller
         User::find(auth()->user()->id)->update(["password" => Hash::make($validatedData["newPassword"])]);
 
         return back();
+    }
+
+    //Delete user and its posts
+    public function destroy(User $user) {
+        request()->validate([
+            "password" => ['required', new MatchOldPassword, Rules\Password::defaults()]
+        ]);
+
+        $user->delete();
+
+        return redirect("/");
     }
 }

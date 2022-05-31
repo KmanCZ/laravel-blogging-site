@@ -11,6 +11,9 @@ Route::middleware('auth')->group(function() {
 
     //Update user password
     Route::patch("/users/{user}/update/password", [UserController::class, "passwordUpdate"])->name("users.update.password");
+
+    //Delete user and its posts
+    Route::delete("/users/{user}",[UserController::class, "destroy"])->name("users.destroy");
 });
 
 //Show user profile page
