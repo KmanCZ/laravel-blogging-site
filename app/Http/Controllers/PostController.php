@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -32,18 +33,18 @@ class PostController extends Controller
 
         Post::create($validatedData);
 
-        return redirect(route("posts.show", ["post" => $validatedData["slug"]]));
+        return redirect(route("posts.show", ["post" => $validatedData["slug"], "user" => auth()->user()]));
     }
 
     //Show specific post
-    public function show(Post $post) {
+    public function show(User $user, Post $post) {
         return view("posts.show", [
             "post" => $post
         ]);
     }
 
     //Show post edit form
-    public function edit(Post $post) {
+    public function edit(User $user, Post $post) {
         if($post->user_id != auth()->id()) {
             abort(403, 'Unauthorized Action');
         }
@@ -65,7 +66,7 @@ class PostController extends Controller
 
         $post->update($formFields);
 
-        return redirect(route("posts.show", ["post" => $post->slug]));
+        return redirect(route("posts.show", ["post" => $post->slug, "user" => auth()->user()]));
     }
 
     //Delete post
