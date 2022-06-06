@@ -28,6 +28,7 @@ class PostController extends Controller
         ]);
 
         $validatedData["slug"] = Str::slug($validatedData["heading"]);
+        $validatedData["user_id"] = auth()->user()->id;
 
         Post::create($validatedData);
 
