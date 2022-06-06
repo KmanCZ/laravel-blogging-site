@@ -23,15 +23,15 @@ class PostController extends Controller
     //Store post to db
     public function store() {
         $validatedData = request()->validate([
-            "heading" => ["required", "unique:posts,heading"],
-            "content" => "required"
+            "heading" => ["required", "unique:posts,heading", "string", 'max:255'],
+            "content" => ["required", "string"]
         ]);
 
         $validatedData["slug"] = Str::slug($validatedData["heading"]);
 
         Post::create($validatedData);
 
-        return redirect("/posts/".$validatedData["slug"]);
+        return redirect(route("posts.show", ["post" => $validatedData["slug"]]));
     }
 
     //Show specific post
@@ -51,18 +51,18 @@ class PostController extends Controller
     //Update post
     public function update(Post $post) {
         $formFields = request()->validate([
-            "content" => "required"
+            "content" => ["required", "string"]
         ]);
 
         $post->update($formFields);
 
-        return redirect("/posts/".$post->slug);
+        return redirect(route("posts.show", ["post" => $post->slug]));
     }
 
     //Delete post
     public function destroy(Post $post) {
         $post->delete();
 
-        return redirect("/home");
+        return redirect(route("home"));
     }
 }

@@ -15,14 +15,17 @@
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         Home
                     </x-nav-link>
+                    @auth
                     <x-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
                         Create Post
                     </x-nav-link>
+                    @endauth
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                @auth
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
@@ -36,8 +39,14 @@
                         </button>
                     </x-slot>
 
+
                     <x-slot name="content">
-                        <!-- Authentication -->
+                        <x-dropdown-link :href="route('users.show', ['user'=>auth()->user()])">
+                            {{ __('Profile') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('users.edit')">
+                            {{ __('User Settings') }}
+                        </x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
@@ -48,6 +57,10 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                @else
+                <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                @endauth
             </div>
 
             <!-- Hamburger -->
@@ -68,17 +81,22 @@
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 Home
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
+                Create Post
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
+        @auth
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
+            <x-responsive-nav-link :href="route('users.show', ['user'=>auth()->user()])">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('users.edit')">
+                {{ __('User Settings') }}
+            </x-responsive-nav-link>
             <div class="mt-3 space-y-1">
-                <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
@@ -89,5 +107,6 @@
                 </form>
             </div>
         </div>
+        @endauth
     </div>
 </nav>
