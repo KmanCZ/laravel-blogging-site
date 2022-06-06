@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class PostController extends Controller
 {
@@ -77,6 +78,10 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect(route("home"));
+        if (!str_contains(back()->getTargetUrl(), $post->slug)) {
+            return back();
+        } else {
+            return redirect(route("home"));
+        }
     }
 }
