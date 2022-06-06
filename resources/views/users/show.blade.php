@@ -16,7 +16,7 @@
                 </div>
             </div>
             @foreach ($posts as $post)
-            <x-post-card :post="$post" />
+            <x-profile-post-card :post="$post" />
             @endforeach
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
