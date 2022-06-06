@@ -56,6 +56,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect("/");
+        return redirect(route("home"));
     }
 }

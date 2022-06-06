@@ -31,7 +31,7 @@ class PostController extends Controller
 
         Post::create($validatedData);
 
-        return redirect("/posts/".$validatedData["slug"]);
+        return redirect(route("posts.show", ["post" => $validatedData["slug"]]));
     }
 
     //Show specific post
@@ -56,13 +56,13 @@ class PostController extends Controller
 
         $post->update($formFields);
 
-        return redirect("/posts/".$post->slug);
+        return redirect(route("posts.show", ["post" => $post->slug]));
     }
 
     //Delete post
     public function destroy(Post $post) {
         $post->delete();
 
-        return redirect("/home");
+        return redirect(route("home"));
     }
 }
