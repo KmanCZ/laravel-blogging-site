@@ -23,8 +23,8 @@ class PostController extends Controller
     //Store post to db
     public function store() {
         $validatedData = request()->validate([
-            "heading" => ["required", "unique:posts,heading"],
-            "content" => "required"
+            "heading" => ["required", "unique:posts,heading", "string", 'max:255'],
+            "content" => ["required", "string"]
         ]);
 
         $validatedData["slug"] = Str::slug($validatedData["heading"]);
@@ -51,7 +51,7 @@ class PostController extends Controller
     //Update post
     public function update(Post $post) {
         $formFields = request()->validate([
-            "content" => "required"
+            "content" => ["required", "string"]
         ]);
 
         $post->update($formFields);
