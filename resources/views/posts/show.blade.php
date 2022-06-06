@@ -18,6 +18,7 @@
                     {!! \Illuminate\Support\Str::markdown($post->content) !!}
                 </div>
                 @auth
+                @if ($post->user->id == auth()->user()->id)
                 <div class="flex justify-end mr-5 my-2">
                     <a href="{{route('posts.edit', ['post'=>$post->slug])}}" class="inline-block rounded-lg bg-blue-500 text-white hover:bg-blue-700 py-1 px-3">Edit</a>
                     <form action="{{route('posts.destroy', ['post'=>$post->slug])}}" method="POST" class="ml-2">
@@ -26,6 +27,7 @@
                         <button type="submit" class="inline-block rounded-lg bg-red-500 text-white hover:bg-red-700 py-1 px-3">Delete</button>
                     </form>
                 </div>
+                @endif
                 @endauth
             </div>
         </div>
