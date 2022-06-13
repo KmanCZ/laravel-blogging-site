@@ -11,7 +11,7 @@ Route::middleware('auth')->group(function() {
     Route::post("/posts", [PostController::class, "store"])->name("posts.store");
 
     //Show edit form for a post route
-    Route::get("/posts/{post}/edit", [PostController::class, "edit"])->name("posts.edit");
+    Route::get("/{user}/{post}/edit", [PostController::class, "edit"])->name("posts.edit");
 
     //Update Post route
     Route::put("/posts/{post}", [PostController::class, "update"])->name("posts.update");
@@ -21,4 +21,4 @@ Route::middleware('auth')->group(function() {
 });
 
 //View Post Route
-Route::get("/posts/{post}", [PostController::class, "show"])->name("posts.show");
+Route::get("/{user}/{post}", [PostController::class, "show"])->name("posts.show");

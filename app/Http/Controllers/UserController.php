@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
@@ -15,6 +16,7 @@ class UserController extends Controller
     //Shows user profile view
     public function show(User $user) {
         return view("users.show", [
+            "posts" => Post::where("user_id", "=" ,$user->id)->orderBy("created_at")->paginate(10),
             "user" => $user
         ]);
     }

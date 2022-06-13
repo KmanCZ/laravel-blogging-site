@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class PostController extends Controller
 {
@@ -28,21 +30,26 @@ class PostController extends Controller
         ]);
 
         $validatedData["slug"] = Str::slug($validatedData["heading"]);
+        $validatedData["user_id"] = auth()->user()->id;
 
         Post::create($validatedData);
 
-        return redirect(route("posts.show", ["post" => $validatedData["slug"]]));
+        return redirect(route("posts.show", ["post" => $validatedData["slug"], "user" => auth()->user()]));
     }
 
     //Show specific post
-    public function show(Post $post) {
+    public function show(User $user, Post $post) {
         return view("posts.show", [
             "post" => $post
         ]);
     }
 
     //Show post edit form
-    public function edit(Post $post) {
+    public function edit(User $user, Post $post) {
+        if($post->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
+
         return view("posts.edit", [
             "post" => $post
         ]);
@@ -50,19 +57,31 @@ class PostController extends Controller
 
     //Update post
     public function update(Post $post) {
+        if($post->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
+
         $formFields = request()->validate([
             "content" => ["required", "string"]
         ]);
 
         $post->update($formFields);
 
-        return redirect(route("posts.show", ["post" => $post->slug]));
+        return redirect(route("posts.show", ["post" => $post->slug, "user" => auth()->user()]));
     }
 
     //Delete post
     public function destroy(Post $post) {
+        if($post->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
+
         $post->delete();
 
-        return redirect(route("home"));
+        if (!str_contains(back()->getTargetUrl(), $post->slug)) {
+            return back();
+        } else {
+            return redirect(route("home"));
+        }
     }
 }
