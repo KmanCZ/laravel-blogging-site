@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [PostController::class, "index"])->name('home');
+Route::get("/search", [PostController::class, "search"])->name("search");
 
 require __DIR__.'/auth.php';
 require __DIR__."/user.php";
