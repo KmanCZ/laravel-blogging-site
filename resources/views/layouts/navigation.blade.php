@@ -21,6 +21,13 @@
                     </x-nav-link>
                     @endauth
                 </div>
+
+                <form action="{{route("search")}}" class="pt-2 pl-4">
+                    <div class="border border-1 border-solid border-black rounded-lg mr-1">
+                        <input class="border-none focus:ring-0 m-1" type="text" name="q" placeholder="Search...">
+                        <button class="hover:bg-slate-200 rounded-lg h-12 px-2" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </form>
             </div>
 
             <!-- Settings Dropdown -->
