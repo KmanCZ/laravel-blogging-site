@@ -9,6 +9,7 @@
         <p>
             by <a class="hover:underline" href="{{route("users.show", ["user" => $post->user])}}">{{$post->user->name}}</a>
         </p>
+        <x-tags :tags="$post->tags" />
     </x-slot>
 
     <div class="py-12">

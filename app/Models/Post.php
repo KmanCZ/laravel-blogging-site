@@ -13,12 +13,19 @@ class Post extends Model
         "heading",
         "slug",
         "content",
-        "user_id"
+        "user_id",
+        "tags"
     ];
 
     public function getRouteKeyName()
     {
         return "slug";
+    }
+
+    public function scopeFilter($querry, array $filters) {
+        if($filters["q"] ?? false) {
+            $querry->where("heading", 'like', '%' . request('q') . '%')->orWhere("content", 'like', '%' . request('q') . '%')->orWhere("tags", 'like', '%' . request('q') . '%');
+        }
     }
 
     public function user() {

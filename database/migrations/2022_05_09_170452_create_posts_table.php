@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("heading");
             $table->string("slug");
             $table->longText("content");
+            $table->string("tags");
             $table->timestamps();
         });
     }

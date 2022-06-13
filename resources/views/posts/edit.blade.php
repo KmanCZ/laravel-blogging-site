@@ -31,7 +31,17 @@
                                     <p class="text-red-600">{{$message}}</p>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="flex flex-col mt-3">
+                                <label for="tags">Tags</label>
+                                <input value="{{$post->tags}}" name="tags" id="tags" type="text" class="rounded-lg" placeholder="Laravel, PHP, MySQL">
+                                @error("tags")
+                                <p class="text-red-600">{{$message}}</p>
+                                @enderror
+                            </div>
+                            <div class="flex flex-col mt-3">
                                 <button class="mt-3 border-solid border-2 border-black rounded-full p-1 hover:bg-slate-400" type="submit">Edit</button>
+                            </div>
                         </form>
                     </div>
                 </div>

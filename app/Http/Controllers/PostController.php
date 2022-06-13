@@ -17,6 +17,14 @@ class PostController extends Controller
         ]);
     }
 
+    //Serch posts
+    public function search() {
+        return view("posts.search", [
+            "posts" => Post::latest()->filter(request(["q"]))->paginate(10),
+            "query" => request()->query("q")
+        ]);
+    }
+
     //Create post form
     public function create() {
         return view("posts.create");
@@ -26,7 +34,8 @@ class PostController extends Controller
     public function store() {
         $validatedData = request()->validate([
             "heading" => ["required", "unique:posts,heading", "string", 'max:255'],
-            "content" => ["required", "string"]
+            "content" => ["required", "string"],
+            "tags" => ["required", "string"]
         ]);
 
         $validatedData["slug"] = Str::slug($validatedData["heading"]);
@@ -62,7 +71,8 @@ class PostController extends Controller
         }
 
         $formFields = request()->validate([
-            "content" => ["required", "string"]
+            "content" => ["required", "string"],
+            "tags" => ["required", "string"]
         ]);
 
         $post->update($formFields);
