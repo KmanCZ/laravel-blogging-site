@@ -60,4 +60,17 @@ class UserController extends Controller
 
         return redirect(route("home"));
     }
+
+    //Follow user
+    public function follow(User $user) {
+        $follower = User::find(auth()->user()->id);
+
+        if($user->followers()->get()->contains($follower)) {
+            return abort(409, 'Already following this user');
+        }
+
+        $follower->following()->attach($user);
+
+        return back();
+    }
 }

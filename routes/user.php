@@ -14,6 +14,9 @@ Route::middleware('auth')->group(function() {
 
     //Delete user and its posts
     Route::delete("/{user}",[UserController::class, "destroy"])->name("users.destroy");
+
+    //Follow user
+    Route::put("/{user}/follow", [UserController::class, "follow"])->name("user.follow");
 });
 
 //Show user profile page

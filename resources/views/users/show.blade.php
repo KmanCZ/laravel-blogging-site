@@ -6,6 +6,14 @@
             </x-slot>
             {{$user->name}}
         </h2>
+        <p>Followers: {{$user->followers()->get()->count()}}</p>
+        @auth
+        <form action="{{route("user.follow", ["user" => $user])}}" method="POST">
+            @csrf
+            @method("PUT")
+            <button type="submit">Follow</button>
+        </form>
+        @endauth
     </x-slot>
 
     <div class="py-12">
