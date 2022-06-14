@@ -65,6 +65,10 @@ class UserController extends Controller
     public function follow(User $user) {
         $follower = User::find(auth()->user()->id);
 
+        if($user == $follower) {
+            return abort(409, 'Conflict');
+        }
+
         if($user->followers()->get()->contains($follower)) {
             return abort(409, 'Already following this user');
         }
@@ -77,6 +81,10 @@ class UserController extends Controller
     //Unfollow user
     public function unfollow(User $user) {
         $follower = User::find(auth()->user()->id);
+
+        if($user == $follower) {
+            return abort(409, 'Conflict');
+        }
 
         if(!$user->followers()->get()->contains($follower)) {
             return abort(409, "You aren't following this user");
