@@ -6,19 +6,8 @@
             </x-slot>
             {{$user->name}}
         </h2>
-        <p>Followers: {{$user->followers()->get()->count()}}</p>
-        @auth
-        <form action="{{route("users.follow", ["user" => $user])}}" method="POST">
-            @csrf
-            @method("PUT")
-            <button type="submit">Follow</button>
-        </form>
-        <form action="{{route("users.unfollow", ["user" => $user])}}" method="POST">
-            @csrf
-            @method("DELETE")
-            <button type="submit">Unfollow</button>
-        </form>
-        @endauth
+        <p><i class="fa-solid fa-users"></i> {{$user->followers()->get()->count()}}</p>
+        <x-follow-button :user="$user" :follower="auth()->user()" />
     </x-slot>
 
     <div class="py-12">
