@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function() {
@@ -16,7 +17,10 @@ Route::middleware('auth')->group(function() {
     Route::delete("/{user}",[UserController::class, "destroy"])->name("users.destroy");
 
     //Follow user
-    Route::put("/{user}/follow", [UserController::class, "follow"])->name("user.follow");
+    Route::put("/{user}/follow", [UserController::class, "follow"])->name("users.follow");
+
+    //Unfollow user
+    Route::delete("{user}/unfollow", [UserController::class, "unfollow"])->name("users.unfollow");
 });
 
 //Show user profile page

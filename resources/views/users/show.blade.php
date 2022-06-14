@@ -8,10 +8,15 @@
         </h2>
         <p>Followers: {{$user->followers()->get()->count()}}</p>
         @auth
-        <form action="{{route("user.follow", ["user" => $user])}}" method="POST">
+        <form action="{{route("users.follow", ["user" => $user])}}" method="POST">
             @csrf
             @method("PUT")
             <button type="submit">Follow</button>
+        </form>
+        <form action="{{route("users.unfollow", ["user" => $user])}}" method="POST">
+            @csrf
+            @method("DELETE")
+            <button type="submit">Unfollow</button>
         </form>
         @endauth
     </x-slot>

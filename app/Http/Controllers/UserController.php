@@ -73,4 +73,17 @@ class UserController extends Controller
 
         return back();
     }
+
+    //Unfollow user
+    public function unfollow(User $user) {
+        $follower = User::find(auth()->user()->id);
+
+        if(!$user->followers()->get()->contains($follower)) {
+            return abort(409, "You aren't following this user");
+        }
+
+        $follower->following()->detach($user);
+
+        return back();
+    }
 }
