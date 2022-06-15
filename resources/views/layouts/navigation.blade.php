@@ -16,6 +16,9 @@
                         Home
                     </x-nav-link>
                     @auth
+                    <x-nav-link :href="route('posts.following')" :active="request()->routeIs('posts.create')">
+                        Following Posts
+                    </x-nav-link>
                     <x-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
                         Create Post
                     </x-nav-link>
@@ -88,9 +91,14 @@
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 Home
             </x-responsive-nav-link>
+            @auth
+            <x-responsive-nav-link :href="route('posts.following')" :active="request()->routeIs('posts.create')">
+                Following Posts
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
                 Create Post
             </x-responsive-nav-link>
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->
@@ -114,6 +122,13 @@
                 </form>
             </div>
         </div>
+        @else
+        <x-responsive-nav-link :href="route('login')">
+            {{ __('Login') }}
+        </x-responsive-nav-link>
+        <x-responsive-nav-link :href="route('register')">
+            {{ __('Register') }}
+        </x-responsive-nav-link>
         @endauth
     </div>
 </nav>
