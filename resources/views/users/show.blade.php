@@ -7,6 +7,7 @@
             {{$user->name}}
         </h2>
         <p><i class="fa-solid fa-users"></i> {{$user->followers()->get()->count()}}</p>
+        <p><i class="fa-solid fa-user"></i> {{$user->following()->get()->count()}}</p>
         <x-follow-button :user="$user" :follower="auth()->user()" />
     </x-slot>
 
