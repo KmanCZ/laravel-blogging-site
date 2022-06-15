@@ -54,7 +54,7 @@
                         <x-dropdown-link :href="route('users.show', ['user'=>auth()->user()])">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('users.edit')">
+                        <x-dropdown-link :href="route('users.edit', ['user'=> auth()->user()])">
                             {{ __('User Settings') }}
                         </x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
@@ -104,11 +104,11 @@
         <!-- Responsive Settings Options -->
         @auth
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <x-responsive-nav-link :href="route('users.show', ['user'=>auth()->user()])">
+            <x-responsive-nav-link :href="route('users.show', ['user' =>auth()->user()])">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('users.edit')">
+            <x-responsive-nav-link :href="route('users.edit', ['user' => auth()->user()])">
                 {{ __('User Settings') }}
             </x-responsive-nav-link>
             <div class="mt-3 space-y-1">

@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, "index"])->name('home');
 Route::get("/search", [PostController::class, "search"])->name("search");
+//Posts from users you follow
+Route::get("/following", [PostController::class, "following"])->name("posts.following");
 
 require __DIR__.'/auth.php';
 require __DIR__."/user.php";

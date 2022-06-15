@@ -94,4 +94,18 @@ class PostController extends Controller
             return redirect(route("home"));
         }
     }
+
+    //Shows page with posts from people you follow
+    public function following() {
+        $user = User::find(auth()->user()->id);
+        $ids = [];
+
+        foreach ($user->following()->get() as $following) {
+            array_push($ids, $following->id);
+        }
+
+        return view("posts.following", [
+            "posts" => Post::whereIn("user_id", $ids)->latest()->paginate(10)
+        ]);
+    }
 }

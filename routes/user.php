@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function() {
     //Show user settings page
-    Route::get("users/settings", [UserController::class, "edit"])->name("users.edit");
+    Route::get("{user}/settings", [UserController::class, "edit"])->name("users.edit");
 
     //Update user information
     Route::put("/{user}/update/informations", [UserController::class, "informationsUpdate"])->name("users.update.informations");

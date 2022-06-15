@@ -10,14 +10,14 @@ Route::middleware('auth')->group(function() {
     //Store Post to db Route
     Route::post("/posts", [PostController::class, "store"])->name("posts.store");
 
-    //Show edit form for a post route
-    Route::get("/{user}/{post}/edit", [PostController::class, "edit"])->name("posts.edit");
-
     //Update Post route
     Route::put("/posts/{post}", [PostController::class, "update"])->name("posts.update");
 
     //Delete Post route
     Route::delete("/posts/{post}", [PostController::class, "destroy"])->name("posts.destroy");
+
+    //Show edit form for a post route
+    Route::get("/{user}/{post}/edit", [PostController::class, "edit"])->name("posts.edit");
 });
 
 //View Post Route
