@@ -28,3 +28,6 @@ Route::get("/{user}", [UserController::class,"show"])->name("users.show");
 
 //Followers page
 Route::get("{user}/followers", [UserController::class, "followers"])->name("users.followers");
+
+//Folling page
+Route::get("{user}/following", [UserController::class, "following"])->name("users.following");
