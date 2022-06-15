@@ -25,3 +25,6 @@ Route::middleware('auth')->group(function() {
 
 //Show user profile page
 Route::get("/{user}", [UserController::class,"show"])->name("users.show");
+
+//Followers page
+Route::get("{user}/followers", [UserController::class, "followers"])->name("users.followers");

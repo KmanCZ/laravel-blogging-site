@@ -94,4 +94,12 @@ class UserController extends Controller
 
         return back();
     }
+
+    //Show followers page
+    public function followers(User $user) {
+        return view("users.followers", [
+            "followers" => $user->followers()->paginate(10),
+            "user" => $user
+        ]);
+    }
 }

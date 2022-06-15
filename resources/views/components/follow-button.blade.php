@@ -1,6 +1,6 @@
 @props(["user", "follower"])
 
-@unless ($user == $follower)
+@unless ($user->id == $follower->id)
 @unless ($user->followers()->get()->contains($follower))
 <form action="{{route("users.follow", ["user" => $user])}}" method="POST">
     @csrf
