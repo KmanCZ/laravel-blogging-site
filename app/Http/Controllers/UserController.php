@@ -60,4 +60,54 @@ class UserController extends Controller
 
         return redirect(route("home"));
     }
+
+    //Follow user
+    public function follow(User $user) {
+        $follower = User::find(auth()->user()->id);
+
+        if($user == $follower) {
+            return abort(409, 'Conflict');
+        }
+
+        if($user->followers()->get()->contains($follower)) {
+            return abort(409, 'Already following this user');
+        }
+
+        $follower->following()->attach($user);
+
+        return back();
+    }
+
+    //Unfollow user
+    public function unfollow(User $user) {
+        $follower = User::find(auth()->user()->id);
+
+        if($user == $follower) {
+            return abort(409, 'Conflict');
+        }
+
+        if(!$user->followers()->get()->contains($follower)) {
+            return abort(409, "You aren't following this user");
+        }
+
+        $follower->following()->detach($user);
+
+        return back();
+    }
+
+    //Show followers page
+    public function followers(User $user) {
+        return view("users.followers", [
+            "followers" => $user->followers()->paginate(10),
+            "user" => $user
+        ]);
+    }
+
+    //Show followers page
+   public function following(User $user) {
+        return view("users.following", [
+            "followings" => $user->following()->paginate(10),
+            "user" => $user
+        ]);
+    }
 }

@@ -11,7 +11,7 @@
         </div>
         @auth
         @if ($post->user->id == auth()->user()->id)
-        <div class=" items-center">
+        <div class="flex items-center">
             <div><a href="{{route('posts.edit', ['post'=>$post->slug, "user" => $post->user])}}" class="inline-block rounded-lg bg-blue-500 text-white hover:bg-blue-700 py-1 px-3">Edit</a></div>
             <form action="{{route('posts.destroy', ['post'=>$post->slug])}}" method="POST" class="ml-2">
                 @csrf
