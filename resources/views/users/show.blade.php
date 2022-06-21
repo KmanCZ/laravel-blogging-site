@@ -6,8 +6,10 @@
             </x-slot>
             {{$user->name}}
         </h2>
-        <p><a href="{{route("users.followers", ["user" => $user])}}"><i class="fa-solid fa-users"></i> {{$user->followers()->get()->count()}}</a></p>
-        <p><a href="{{route("users.following", ["user" => $user])}}"><i class="fa-solid fa-user"></i> {{$user->following()->get()->count()}}</a></p>
+        <div class="flex gap-2">
+            <p class="select-none"><a href="{{route("users.followers", ["user" => $user])}}"><i class="fa-solid fa-users"></i> {{$user->followers()->get()->count()}}</a></p>
+            <p class="select-none"><a href="{{route("users.following", ["user" => $user])}}"><i class="fa-solid fa-user"></i> {{$user->following()->get()->count()}}</a></p>
+        </div>
         <x-follow-button :user="$user" :follower="auth()->user()" />
     </x-slot>
 

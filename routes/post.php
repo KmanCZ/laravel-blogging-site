@@ -18,6 +18,12 @@ Route::middleware('auth')->group(function() {
 
     //Show edit form for a post route
     Route::get("/{user}/{post}/edit", [PostController::class, "edit"])->name("posts.edit");
+
+    //Like post route
+    Route::put("/{user}/{post}/like", [PostController::class, "like"])->name("posts.like");
+
+    //Unlike post route
+    Route::delete("/{user}/{post}/unlike", [PostController::class, "unlike"])->name("posts.unlike");
 });
 
 //View Post Route

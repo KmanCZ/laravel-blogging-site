@@ -6,6 +6,10 @@
             <h3 class="font-bold text-2xl px-6">{{$post->heading}}</h3>
             <p class="px-6">by <a class="hover:underline" href="{{route("users.show", ["user" => $post->user])}}">{{$post->user->name}}</a></p>
             <x-tags class="px-6" :tags="$post->tags" />
+            <div class="flex items-center px-6 mt-1">
+                <i class="fa-solid fa-heart text-red-600 text-xl"></i>
+                <p class="text-xl mx-1 select-none">{{$post->likes()->get()->count()}}</p>
+            </div>
         </div>
     </div>
 </a>
