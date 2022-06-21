@@ -18,5 +18,5 @@
     @else
     <i class="fa-regular fa-heart text-red-600 text-2xl"></i>
     @endauth
-    <p class="text-2xl mx-1">{{$post->likes()->get()->count()}}</p>
+    <p class="text-2xl mx-1 select-none">{{$post->likes()->get()->count()}}</p>
 </div>
