@@ -108,4 +108,26 @@ class PostController extends Controller
             "posts" => Post::whereIn("user_id", $ids)->latest()->paginate(10)
         ]);
     }
+
+    //Like post
+    public function like(User $user, Post $post) {
+        if($post->likes()->get()->contains(auth()->user())) {
+            return abort(409, "Conflict");
+        }
+
+        $post->likes()->attach(auth()->user());
+
+        return back();
+    }
+
+    //Unlike post
+    public function unlike(User $user, Post $post) {
+        if(!$post->likes()->get()->contains(auth()->user())) {
+            return abort(409, "Conflict");
+        }
+
+        $post->likes()->detach(auth()->user());
+
+        return back();
+    }
 }
