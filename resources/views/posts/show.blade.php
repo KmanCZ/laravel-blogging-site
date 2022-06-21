@@ -18,19 +18,8 @@
                 <div class="p-6 bg-white border-b border-gray-200 markdown">
                     {!! \Illuminate\Support\Str::markdown($post->content) !!}
                 </div>
-                @auth
                 <div class="flex justify-end mr-5 my-2">
-                    <form action="{{route("posts.like", ['post'=>$post->slug, "user" => $post->user])}}" method="POST">
-                        @csrf
-                        @method("PUT")
-                        <button><i class="fa-regular fa-heart text-red-600"></i></button>
-                    </form>
-                    <form action="{{route("posts.unlike", ['post'=>$post->slug, "user" => $post->user])}}" method="POST">
-                        @csrf
-                        @method("DELETE")
-                        <button><i class="fa-solid fa-heart text-red-600"></i></button>
-                    </form>
-                    <p>Likes: {{$post->likes()->get()->count()}}</p>
+                    @auth
                     @if ($post->user->id == auth()->user()->id)
                     <a href="{{route('posts.edit', ['post'=>$post->slug, "user" => $post->user])}}" class="inline-block rounded-lg bg-blue-500 text-white hover:bg-blue-700 py-1 px-3">Edit</a>
                     <form action="{{route('posts.destroy', ['post'=>$post->slug])}}" method="POST" class="ml-2">
@@ -39,8 +28,9 @@
                         <button type="submit" class="inline-block rounded-lg bg-red-500 text-white hover:bg-red-700 py-1 px-3">Delete</button>
                     </form>
                     @endif
+                    @endauth
+                    <x-like-button :post="$post" />
                 </div>
-                @endauth
             </div>
         </div>
     </div>
