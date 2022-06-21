@@ -8,6 +8,10 @@
                 <h3 class="inline-block font-bold text-2xl px-6">{{$post->heading}}</h3>
             </a>
             <x-tags class="px-6 inline-block" :tags="$post->tags" />
+            <div class="flex items-center px-6 mt-1">
+                <i class="fa-solid fa-heart text-red-600 text-xl"></i>
+                <p class="text-xl mx-1">{{$post->likes()->get()->count()}}</p>
+            </div>
         </div>
         @auth
         @if ($post->user->id == auth()->user()->id)
