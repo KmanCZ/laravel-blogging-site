@@ -30,6 +30,10 @@
                     @endif
                     @endauth
                     <x-like-button :post="$post" />
+                    <div class="flex justify-center items-center mx-2">
+                        <i class="fa-regular fa-comment text-2xl"></i>
+                        <p class="text-2xl mx-1 select-none">{{$post->comments()->get()->count()}}</p>
+                    </div>
                 </div>
             </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 mx-10">

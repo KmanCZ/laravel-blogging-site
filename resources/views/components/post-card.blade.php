@@ -9,6 +9,8 @@
             <div class="flex items-center px-6 mt-1">
                 <i class="fa-solid fa-heart text-red-600 text-xl"></i>
                 <p class="text-xl mx-1 select-none">{{$post->likes()->get()->count()}}</p>
+                <i class="fa-regular fa-comment text-xl ml-1"></i>
+                <p class="text-xl mx-1 select-none">{{$post->comments()->get()->count()}}</p>
             </div>
         </div>
     </div>
