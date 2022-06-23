@@ -10,4 +10,7 @@ Route::middleware('auth')->group(function() {
 
     //Delete Comment Route
     Route::delete("/comments/{comment}", [CommentController::class, "destroy"])->name("commnets.destroy");
+
+    //Update Comment Route
+    Route::put("/comments/{comment}", [CommentController::class, "update"])->name("commnets.update");
 });

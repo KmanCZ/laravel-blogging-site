@@ -28,4 +28,19 @@ class CommentController extends Controller
 
         return back();
     }
+
+    //Update post
+    public function update(Comment $comment) {
+        if($comment->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
+
+        request()->validate([
+            "commentEdit" => ["required", "string"],
+        ]);
+
+        $comment->update(["content" => request()->commentEdit]);
+
+        return back();
+    }
 }
