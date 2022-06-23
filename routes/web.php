@@ -23,3 +23,4 @@ Route::get("/following", [PostController::class, "following"])->name("posts.foll
 require __DIR__.'/auth.php';
 require __DIR__."/user.php";
 require __DIR__."/post.php";
+require __DIR__."/comment.php";

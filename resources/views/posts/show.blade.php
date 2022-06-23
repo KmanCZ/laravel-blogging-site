@@ -37,8 +37,12 @@
                 </div>
             </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 mx-10">
-                <form class="p-6 bg-white border-b border-gray-200">
-                    <textarea name="" id="" class="resize-none w-full h-50 border border-solid rounded-lg" placeholder="Comment..."></textarea>
+                <form method="POST" action="{{route("comments.create", ["post" => $post, "user" => $post->user])}}" class="p-6 bg-white border-b border-gray-200">
+                    @csrf
+                    <textarea name="comment" id="content" class="resize-none w-full h-50 border border-solid rounded-lg" placeholder="Comment..."></textarea>
+                    @error("comment")
+                    <p class="text-red-600">{{$message}}</p>
+                    @enderror
                     <div class="flex justify-end">
                         <button type="submit" class="inline-block rounded-lg border-solid border-2 border-black hover:bg-slate-400 py-1 px-3">Submit</button>
                     </div>
