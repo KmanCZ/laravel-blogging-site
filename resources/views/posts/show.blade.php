@@ -50,7 +50,10 @@
                 </form>
             </div>
             @endauth
-            @foreach ($post->comments()->latest()->get() as $comment)
+            @foreach ($comments as $comment)
             <x-comment :comment="$comment" />
             @endforeach
+            <div class="max-w-7xl mx-auto mt-3 sm:px-6 lg:px-8">
+                {{$comments->links()}}
+            </div>
 </x-app-layout>

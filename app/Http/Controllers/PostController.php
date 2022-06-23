@@ -49,7 +49,8 @@ class PostController extends Controller
     //Show specific post
     public function show(User $user, Post $post) {
         return view("posts.show", [
-            "post" => $post
+            "post" => $post,
+            "comments" => $post->comments()->latest()->paginate(20)
         ]);
     }
 
