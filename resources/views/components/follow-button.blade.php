@@ -1,5 +1,6 @@
 @props(["user", "follower"])
 
+@auth
 @unless ($user->id == $follower->id)
 @unless ($user->followers()->get()->contains($follower))
 <form action="{{route("users.follow", ["user" => $user])}}" method="POST">
@@ -15,3 +16,4 @@
 </form>
 @endunless
 @endunless
+@endauth

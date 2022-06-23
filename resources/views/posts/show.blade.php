@@ -30,8 +30,30 @@
                     @endif
                     @endauth
                     <x-like-button :post="$post" />
+                    <div class="flex justify-center items-center mx-2">
+                        <i class="fa-regular fa-comment text-2xl"></i>
+                        <p class="text-2xl mx-1 select-none">{{$post->comments()->get()->count()}}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+            @auth
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 mx-10">
+                <form method="POST" action="{{route("comments.create", ["post" => $post, "user" => $post->user])}}" class="p-6 bg-white border-b border-gray-200">
+                    @csrf
+                    <textarea name="comment" id="comment" class="resize-none w-full h-50 border border-solid rounded-lg" placeholder="Comment..."></textarea>
+                    @error("comment")
+                    <p class="text-red-600">{{$message}}</p>
+                    @enderror
+                    <div class="flex justify-end">
+                        <button type="submit" class="inline-block rounded-lg border-solid border-2 border-black hover:bg-slate-400 py-1 px-3">Submit</button>
+                    </div>
+                </form>
+            </div>
+            @endauth
+            @foreach ($comments as $comment)
+            <x-comment :comment="$comment" />
+            @endforeach
+            <div class="max-w-7xl mx-auto mt-3 sm:px-6 lg:px-8">
+                {{$comments->links()}}
+            </div>
 </x-app-layout>
