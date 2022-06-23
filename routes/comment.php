@@ -5,6 +5,9 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function() {
-    //Post Form Route
-    Route::post("/{user}/{post}/comments", [CommentController::class, "create"])->name("comments.create");
+    //Create Comment Route
+    Route::post("/{user}/{post}/comments", [CommentController::class, "store"])->name("comments.create");
+
+    //Delete Comment Route
+    Route::delete("/comments/{comment}", [CommentController::class, "destroy"])->name("commnets.destroy");
 });
