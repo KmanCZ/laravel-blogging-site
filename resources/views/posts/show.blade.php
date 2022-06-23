@@ -36,6 +36,7 @@
                     </div>
                 </div>
             </div>
+            @auth
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 mx-10">
                 <form method="POST" action="{{route("comments.create", ["post" => $post, "user" => $post->user])}}" class="p-6 bg-white border-b border-gray-200">
                     @csrf
@@ -48,6 +49,7 @@
                     </div>
                 </form>
             </div>
+            @endauth
             @foreach ($post->comments()->latest()->get() as $comment)
             <x-comment :comment="$comment" />
             @endforeach

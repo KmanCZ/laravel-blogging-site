@@ -1,5 +1,6 @@
 @props(["comment"])
 
+@if(auth()->check() && $comment->user == auth()->user())
 <div x-data="{ open: true }">
     <div x-show="open" class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 mx-10">
         <div class="p-6 bg-white border-b border-gray-200">
@@ -31,3 +32,11 @@
         </form>
     </div>
 </div>
+@else
+<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 mx-10">
+    <div class="p-6 bg-white border-b border-gray-200">
+        <div class="font-bold text-lg">{{$comment->user->name}}:</div>
+        <div>{{$comment->content}}</div>
+    </div>
+</div>
+@endif
