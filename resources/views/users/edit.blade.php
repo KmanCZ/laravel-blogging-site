@@ -13,7 +13,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h3 class="text-xl font-bold mb-3">User Informations</h3>
-                    <form action="{{route("users.update.informations", ["user"=>auth()->user()])}}" method="POST">
+                    <form action="{{route("users.update.informations", ["user"=>auth()->user()])}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
                         <div class="flex flex-col">
@@ -27,6 +27,18 @@
                             <label for="email">Email</label>
                             <input value="{{auth()->user()->email}}" name="email" id="email" type="email" class="rounded-lg">
                             @error("email")
+                            <p class="text-red-600">{{$message}}</p>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col mt-3">
+                            <label for="profile_picture">Profile picture</label>
+                            <div class="flex w-full">
+                                <span class="w-fit">
+                                    <img class="w-fit h-10 mr-2 rounded-full inline-block" src="{{asset("storage/". auth()->user()->profile_picture)}}" alt="profile picture">
+                                </span>
+                                <input name="profile_picture" id="profile_picture" type="file" accept=".png, .jpg, .jpeg" class="inline-block border border-solid border-black p-1 rounded-lg w-full">
+                            </div>
+                            @error("profile_picture")
                             <p class="text-red-600">{{$message}}</p>
                             @enderror
                         </div>

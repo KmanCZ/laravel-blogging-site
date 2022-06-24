@@ -30,8 +30,13 @@ class UserController extends Controller
     public function informationsUpdate() {
         $userInfo = request()->validate([
             "name" => ['required', 'string', 'max:255'],
-            "email" => ['required', 'string', 'email', 'max:255', Rule::unique("users")->ignore(auth()->user())]
+            "email" => ['required', 'string', 'email', 'max:255', Rule::unique("users")->ignore(auth()->user())],
+            "profile_picture" => ["image", "dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000", "max:2000"]
         ]);
+
+        if(request()->hasFile("profile_picture")) {
+            $userInfo["profile_picture"] = request()->file("profile_picture")->storeAs(auth()->user()->username, "profile_picture", "public");
+        }
 
         User::find(auth()->user()->id)->update($userInfo);
 

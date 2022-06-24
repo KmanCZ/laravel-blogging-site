@@ -868,6 +868,25 @@ select {
 .w-12 {
   width: 3rem;
 }
+.w-fit {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.w-max {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.w-screen {
+  width: 100vw;
+}
+.w-9\/12 {
+  width: 75%;
+}
+.w-11\/12 {
+  width: 91.666667%;
+}
 .max-w-7xl {
   max-width: 80rem;
 }
