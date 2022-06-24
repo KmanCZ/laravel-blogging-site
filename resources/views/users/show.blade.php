@@ -1,16 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <x-slot name="pName">
-                {{$user->name}}
-            </x-slot>
-            {{$user->name}}
-        </h2>
-        <div class="flex gap-2">
-            <p class="select-none"><a href="{{route("users.followers", ["user" => $user])}}"><i class="fa-solid fa-users"></i> {{$user->followers()->get()->count()}}</a></p>
-            <p class="select-none"><a href="{{route("users.following", ["user" => $user])}}"><i class="fa-solid fa-user"></i> {{$user->following()->get()->count()}}</a></p>
+        <div class="flex gap-3 items-center">
+            <img class="w-12 h-fit mr-1 ml-2 rounded-full inline-block" src="{{asset("storage/". $user->profile_picture)}}" alt="profile picture">
+            <div>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    <x-slot name="pName">
+                        {{$user->name}}
+                    </x-slot>
+                    {{$user->name}}
+                </h2>
+                <div class="flex gap-2">
+                    <p class="select-none"><a href="{{route("users.followers", ["user" => $user])}}"><i class="fa-solid fa-users"></i> {{$user->followers()->get()->count()}}</a></p>
+                    <p class="select-none"><a href="{{route("users.following", ["user" => $user])}}"><i class="fa-solid fa-user"></i> {{$user->following()->get()->count()}}</a></p>
+                </div>
+            </div>
+            <x-follow-button :user="$user" :follower="auth()->user()" />
         </div>
-        <x-follow-button :user="$user" :follower="auth()->user()" />
     </x-slot>
 
     <div class="py-12">
