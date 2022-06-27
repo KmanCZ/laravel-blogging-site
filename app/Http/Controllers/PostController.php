@@ -17,6 +17,11 @@ class PostController extends Controller
         ]);
     }
 
+    //Saves image for post
+    public function image() {
+        return auth('api')->user()->name;
+    }
+
     //Serch posts
     public function search() {
         return view("posts.search", [
