@@ -36,18 +36,10 @@
                             </div>
                             <div class="flex flex-col mt-3">
                                 <label for="images">Images</label>
-                                <input onchange="uploadImage(this)" name="image" id="images" type="file" class="rounded-lg border border-solid border-black p-1">
+                                <input name="image" id="images" type="file" accept=".png, .jpg, .jpeg" class="rounded-lg border border-solid border-black p-1">
 
-                                <p class="text-red-600"></p>
-
-                                <ul class="border border-solid border-black bg-zinc-100 rounded-lg p-2 mt-3">
-                                    <li>
-                                        ![Image description](https://static.remove.bg/remove-bg-web/19c2a5c2699621496a98aec1b8fd0618590c36e2/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg)
-                                    </li>
-                                    <li>
-                                        ![Image description](https://static.remove.bg/remove-bg-web/19c2a5c2699621496a98aec1b8fd0618590c36e2/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg)
-                                    </li>
-                                </ul>
+                                <div id="linkDisplay" class="border border-solid border-black bg-zinc-100 rounded-lg p-2 mt-3 hidden">
+                                </div>
 
                             </div>
                             <div class="flex flex-col mt-3">
@@ -69,12 +61,19 @@
 </x-app-layout>
 
 <script>
-    let laravelToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    let apiToken = "{{auth()->user()->api_token}}";
+    const laravelToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const apiToken = "{{auth()->user()->api_token}}";
 
-    function uploadImage(input) {
+    const linkDisplay = document.querySelector("#linkDisplay");
+    const fileInput = document.querySelector("#images")
+
+    fileInput.onchange = uploadImage
+
+    function uploadImage() {
+        this.disabled = true
+
         let fd = new FormData();
-        fd.append('image', input.files[0])
+        fd.append('image', this.files[0])
 
         axios.post(`../api/posts/image?api_token=${apiToken}`, fd, {
                 "headers": {
@@ -82,8 +81,15 @@
                     , "X-CSRF-TOKEN": laravelToken
                 }
             })
-            .then((res) => console.log(res))
-            .catch(() => console.log("Error"))
+            .then(displayImageLink)
+            .catch((err) => console.log(err))
+    }
+
+    function displayImageLink(res) {
+        linkDisplay.classList.remove("hidden")
+        linkDisplay.textContent = `![Image description](http://127.0.0.1:8000/storage/${res.data})`
+
+        fileInput.disabled = false
     }
 
 </script>
