@@ -36,7 +36,7 @@
                             </div>
                             <div class="flex flex-col mt-3">
                                 <label for="images">Images</label>
-                                <input onchange="getFile(this)" name="image" id="images" type="file" class="rounded-lg border border-solid border-black p-1">
+                                <input onchange="uploadImage(this)" name="image" id="images" type="file" class="rounded-lg border border-solid border-black p-1">
 
                                 <p class="text-red-600"></p>
 
@@ -72,9 +72,9 @@
     let laravelToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     let apiToken = "{{auth()->user()->api_token}}";
 
-    function getFile(input) {
+    function uploadImage(input) {
         let fd = new FormData();
-        fd.append('file', input.files[0])
+        fd.append('image', input.files[0])
 
         axios.post(`../api/posts/image?api_token=${apiToken}`, fd, {
                 "headers": {
