@@ -82,7 +82,7 @@
                 }
             })
             .then(displayImageLink)
-            .catch((err) => console.log(err))
+            .catch(errorHandler)
     }
 
     function displayImageLink(res) {
@@ -90,6 +90,15 @@
         linkDisplay.textContent = `![Image description](http://127.0.0.1:8000/storage/${res.data})`
 
         fileInput.disabled = false
+    }
+
+    function errorHandler(err) {
+        console.log(err)
+        fileInput.disabled = false
+        fileInput.value = ""
+
+        linkDisplay.classList.remove("hidden")
+        linkDisplay.textContent = `Something went wrong :(`
     }
 
 </script>
