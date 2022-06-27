@@ -32,6 +32,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $request->user()->generateAndSaveApiAuthToken();
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -43,6 +45,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+        $user = auth()->user();
+
+        if ($user) {
+            $user->api_token = null;
+            $user->save();
+        }
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
