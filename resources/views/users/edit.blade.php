@@ -34,7 +34,7 @@
                             <label for="profile_picture">Profile picture</label>
                             <div class="flex w-full">
                                 <span class="w-fit">
-                                    <img class="w-fit h-10 mr-2 rounded-full inline-block" src="{{asset("storage/". auth()->user()->profile_picture)}}" alt="profile picture">
+                                    <img id="pfp-preview" class="w-fit h-10 mr-2 rounded-full inline-block" src="{{asset("storage/". auth()->user()->profile_picture)}}" alt="profile picture">
                                 </span>
                                 <input name="profile_picture" id="profile_picture" type="file" accept=".png, .jpg, .jpeg" class="inline-block border border-solid border-black p-1 rounded-lg w-full">
                             </div>
@@ -105,3 +105,43 @@
             </div>
         </div>
 </x-app-layout>
+
+<script>
+    const pfpPreview = document.querySelector("#pfp-preview")
+    const pfpInput = document.querySelector("#profile_picture")
+
+    pfpInput.onchange = changePreview
+
+    function changePreview() {
+        const selectedFile = this.files[0]
+        const reader = new FileReader()
+
+        if (selectedFile.size >= 2000000) {
+            alert("Picture is too big")
+            pfpInput.value = ""
+            return
+        }
+
+        reader.onload = e => {
+            const image = new Image();
+            const imageSrc = e.target.result
+            image.src = imageSrc;
+
+            let canChange = false
+
+            image.onload = (e) => {
+                const height = e.target.height;
+                const width = e.target.width;
+                if (height > 100 && width > 100 && height < 1000 && width < 1000) {
+                    pfpPreview.src = imageSrc
+                } else {
+                    alert("Picture is has invalid dimensions")
+                    pfpInput.value = ""
+                }
+            }
+        }
+
+        reader.readAsDataURL(selectedFile)
+    }
+
+</script>
