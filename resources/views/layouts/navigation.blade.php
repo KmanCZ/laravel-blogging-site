@@ -16,7 +16,7 @@
                         Home
                     </x-nav-link>
                     @auth
-                    <x-nav-link :href="route('posts.following')" :active="request()->routeIs('posts.create')">
+                    <x-nav-link :href="route('posts.following')" :active="request()->routeIs('posts.following')">
                         Following Posts
                     </x-nav-link>
                     <x-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
@@ -98,7 +98,7 @@
                 Home
             </x-responsive-nav-link>
             @auth
-            <x-responsive-nav-link :href="route('posts.following')" :active="request()->routeIs('posts.create')">
+            <x-responsive-nav-link :href="route('posts.following')" :active="request()->routeIs('posts.following')">
                 Following Posts
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">

@@ -1,4 +1,5 @@
 <x-app-layout>
+    {{auth()->user()->token}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             <x-slot name="pName">
@@ -34,6 +35,14 @@
                                 </div>
                             </div>
                             <div class="flex flex-col mt-3">
+                                <label for="images">Images</label>
+                                <input name="image" id="images" type="file" accept=".png, .jpg, .jpeg" class="rounded-lg border border-solid border-black p-1">
+
+                                <div id="linkDisplay" class="border border-solid border-black bg-zinc-100 rounded-lg p-2 mt-3 hidden">
+                                </div>
+
+                            </div>
+                            <div class="flex flex-col mt-3">
                                 <label for="tags">Tags</label>
                                 <input value="{{old("tags")}}" name="tags" id="tags" type="text" class="rounded-lg" placeholder="Laravel, PHP, MySQL">
                                 @error("tags")
@@ -50,3 +59,37 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    const laravelToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const apiToken = "{{auth()->user()->api_token}}";
+
+    const linkDisplay = document.querySelector("#linkDisplay");
+    const fileInput = document.querySelector("#images")
+
+    fileInput.onchange = uploadImage
+
+    function uploadImage() {
+        this.disabled = true
+
+        let fd = new FormData();
+        fd.append('image', this.files[0])
+
+        axios.post(`../api/posts/image?api_token=${apiToken}`, fd, {
+                "headers": {
+                    "Content-Type": "multipart/form-data"
+                    , "X-CSRF-TOKEN": laravelToken
+                }
+            })
+            .then(displayImageLink)
+            .catch((err) => console.log(err))
+    }
+
+    function displayImageLink(res) {
+        linkDisplay.classList.remove("hidden")
+        linkDisplay.textContent = `![Image description](http://127.0.0.1:8000/storage/${res.data})`
+
+        fileInput.disabled = false
+    }
+
+</script>

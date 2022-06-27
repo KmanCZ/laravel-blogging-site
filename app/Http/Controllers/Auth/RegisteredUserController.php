@@ -50,6 +50,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+        $user->generateAndSaveApiAuthToken();
 
         return redirect(RouteServiceProvider::HOME);
     }

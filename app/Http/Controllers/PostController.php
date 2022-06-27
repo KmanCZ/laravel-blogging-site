@@ -17,6 +17,19 @@ class PostController extends Controller
         ]);
     }
 
+    //Saves image for post
+    public function image() {
+        request()->validate([
+            "image" => ["required", "image", "max:5000"]
+        ]);
+
+        if(request()->hasFile("image")) {
+            $userInfo["image"] = request()->file("image")->storeAs(auth("api")->user()->username, Str::random(10), "public");
+        }
+
+        return $userInfo["image"];
+    }
+
     //Serch posts
     public function search() {
         return view("posts.search", [
