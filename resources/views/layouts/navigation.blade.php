@@ -23,14 +23,13 @@
                         Create Post
                     </x-nav-link>
                     @endauth
+                    <form action="{{route("search")}}" class="pt-2 pl-2">
+                        <div class="border border-1 border-solid border-black rounded-lg mr-1">
+                            <input class="border-none focus:ring-0 m-1" type="text" name="q" placeholder="Search...">
+                            <button class="hover:bg-slate-200 rounded-lg h-12 px-2" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </form>
                 </div>
-
-                <form action="{{route("search")}}" class="pt-2 pl-4">
-                    <div class="border border-1 border-solid border-black rounded-lg mr-1">
-                        <input class="border-none focus:ring-0 m-1" type="text" name="q" placeholder="Search...">
-                        <button class="hover:bg-slate-200 rounded-lg h-12 px-2" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
-                </form>
             </div>
 
             <!-- Settings Dropdown -->
@@ -39,6 +38,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                            <img class="w-10 h-auto mx-2 rounded-full" src="{{asset("storage/". auth()->user()->profile_picture)}}" alt="profile picture">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ml-1">
@@ -88,6 +88,12 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+            <form action="{{route("search")}}" class="pt-2 px-4">
+                <div class="border border-1 border-solid border-black rounded-lg mr-1 flex justify-between gap-2">
+                    <input class="border-none focus:ring-0 m-1" type="text" name="q" placeholder="Search...">
+                    <button class="hover:bg-slate-200 rounded-lg h-12 pr-2" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </form>
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 Home
             </x-responsive-nav-link>
@@ -104,9 +110,12 @@
         <!-- Responsive Settings Options -->
         @auth
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <x-responsive-nav-link :href="route('users.show', ['user' =>auth()->user()])">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+            <x-responsive-nav-link :href="route('users.show', ['user' =>auth()->user()])" class="flex items-center gap-2">
+                <img class="w-auto h-10 rounded-full" src="{{asset("storage/". auth()->user()->profile_picture)}}" alt="profile picture">
+                <div>
+                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                </div>
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('users.edit', ['user' => auth()->user()])">
                 {{ __('User Settings') }}
