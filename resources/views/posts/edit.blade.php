@@ -14,7 +14,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     Edit post
                     <div>
-                        <form action="{{route('posts.update', ['post'=>$post->slug])}}" method="POST" id="editPostForm">
+                        <form action="{{route('posts.update', ['post'=>$post->slug])}}" method="POST" id="editPostForm" enctype="multipart/form-data">
                             @csrf
                             @method("PUT")
                             <div class="flex flex-col">
@@ -23,7 +23,7 @@
                             </div>
                             <div class="flex flex-col mt-3">
                                 <label for="cover_image">Cover image</label>
-                                <input value="{{old("cover_image")}}" name="cover_image" id="cover_image" type="file" class="border border-solid border-black p-1 rounded-lg">
+                                <input value="{{old("cover_image")}}" name="cover_image" id="cover_image" type="file" accept=".png, .jpg, .jpeg" class="border border-solid border-black p-1 rounded-lg">
                                 @error("cover_image")
                                 <p class="text-red-600">{{$message}}</p>
                                 @enderror
