@@ -25,6 +25,13 @@
                                 @enderror
                             </div>
                             <div class="flex flex-col mt-3">
+                                <label for="cover_image">Cover image</label>
+                                <input value="{{old("cover_image")}}" name="cover_image" id="cover_image" type="file" class="border border-solid border-black p-1 rounded-lg">
+                                @error("cover_image")
+                                <p class="text-red-600">{{$message}}</p>
+                                @enderror
+                            </div>
+                            <div class="flex flex-col mt-3">
                                 <label for="editor">Post</label>
                                 <div id="editor" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{old("content")}}</div>
                                 <input type="hidden" name="content" id="content">
