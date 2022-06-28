@@ -30838,7 +30838,7 @@ var editor = new _toast_ui_editor__WEBPACK_IMPORTED_MODULE_0__["default"]({
       console.log(fd);
       axios__WEBPACK_IMPORTED_MODULE_2___default()({
         method: "POST",
-        url: "../api/posts/image?api_token=".concat(apiToken),
+        url: "http://127.0.0.1:8000/api/posts/image?api_token=".concat(apiToken),
         processData: false,
         headers: {
           "Content-Type": "multipart/form-data",
