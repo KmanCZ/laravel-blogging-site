@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -104,6 +105,8 @@ class PostController extends Controller
         if($post->user_id != auth()->id()) {
             abort(403, 'Unauthorized Action');
         }
+
+        Storage::delete("public/".$post->cover_image);
 
         $post->delete();
 
