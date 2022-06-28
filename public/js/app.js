@@ -30812,6 +30812,8 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _toast_ui_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @toast-ui/editor */ "./node_modules/@toast-ui/editor/dist/esm/index.js");
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -30821,13 +30823,35 @@ __webpack_require__(/*! codemirror/lib/codemirror.css */ "./node_modules/codemir
 __webpack_require__(/*! @toast-ui/editor/dist/toastui-editor.css */ "./node_modules/@toast-ui/editor/dist/toastui-editor.css");
 
 
+
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
 var editor = new _toast_ui_editor__WEBPACK_IMPORTED_MODULE_0__["default"]({
   el: document.querySelector("#editor"),
   height: "400px",
   initialEditType: "markdown",
-  placeholder: "Write here your post!"
+  placeholder: "Write here your post!",
+  hooks: {
+    addImageBlobHook: function addImageBlobHook(imageBlob, callback) {
+      var fd = new FormData();
+      fd.append("image", imageBlob);
+      console.log(fd);
+      axios__WEBPACK_IMPORTED_MODULE_2___default()({
+        method: "POST",
+        url: "../api/posts/image?api_token=".concat(apiToken),
+        processData: false,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "X-CSRF-TOKEN": laravelToken
+        },
+        data: fd
+      }).then(function (res) {
+        callback("http://127.0.0.1:8000/storage/".concat(res.data), document.querySelector("#toastuiAltTextInput").value);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    }
+  }
 });
 
 if (document.querySelector("#createPostForm")) {
