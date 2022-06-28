@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex gap-3 items-center">
-            <img class="w-12 h-fit mr-1 ml-2 rounded-full inline-block" src="{{asset("storage/". $user->profile_picture)}}" alt="profile picture">
+            <img class="w-12 h-12 mr-1 ml-2 rounded-full inline-block" src="{{asset("storage/". $user->profile_picture)}}" alt="profile picture">
             <div>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     <x-slot name="pName">
