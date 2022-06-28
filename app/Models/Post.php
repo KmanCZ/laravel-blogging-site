@@ -14,7 +14,8 @@ class Post extends Model
         "slug",
         "content",
         "user_id",
-        "tags"
+        "tags",
+        "cover_image"
     ];
 
     public function getRouteKeyName()

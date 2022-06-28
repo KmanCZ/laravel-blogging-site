@@ -48,11 +48,16 @@ class PostController extends Controller
         $validatedData = request()->validate([
             "heading" => ["required", "unique:posts,heading", "string", 'max:255'],
             "content" => ["required", "string"],
-            "tags" => ["required", "string"]
+            "tags" => ["required", "string"],
+            "cover_image" => ["image", "dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000", "max:5000"]
         ]);
 
         $validatedData["slug"] = Str::slug($validatedData["heading"]);
         $validatedData["user_id"] = auth()->user()->id;
+
+        if(request()->hasFile("cover_image")) {
+            $validatedData["cover_image"] = request()->file("cover_image")->storeAs(auth()->user()->username, $validatedData["slug"], "public");
+        }
 
         Post::create($validatedData);
 
