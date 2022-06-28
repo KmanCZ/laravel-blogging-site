@@ -38,6 +38,7 @@
                                 </span>
                                 <input name="profile_picture" id="profile_picture" type="file" accept=".png, .jpg, .jpeg" class="inline-block border border-solid border-black p-1 rounded-lg w-full">
                             </div>
+                            <p class="text-red-600" id="pfp-error"></p>
                             @error("profile_picture")
                             <p class="text-red-600">{{$message}}</p>
                             @enderror
@@ -109,15 +110,17 @@
 <script>
     const pfpPreview = document.querySelector("#pfp-preview")
     const pfpInput = document.querySelector("#profile_picture")
+    const pfpError = document.querySelector("#pfp-error")
 
     pfpInput.onchange = changePreview
 
     function changePreview() {
+        pfpError.textContent = ""
         const selectedFile = this.files[0]
         const reader = new FileReader()
 
         if (selectedFile.size >= 2000000) {
-            alert("Picture is too big")
+            pfpError.textContent = "The profile picture is too big."
             pfpInput.value = ""
             return
         }
@@ -135,7 +138,7 @@
                 if (height > 100 && width > 100 && height < 1000 && width < 1000) {
                     pfpPreview.src = imageSrc
                 } else {
-                    alert("Picture is has invalid dimensions")
+                    pfpError.textContent = "The profile picture has invalid image dimensions."
                     pfpInput.value = ""
                 }
             }
