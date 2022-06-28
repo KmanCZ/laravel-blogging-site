@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -60,6 +61,8 @@ class UserController extends Controller
         request()->validate([
             "password" => ['required', new MatchOldPassword, Rules\Password::defaults()]
         ]);
+
+        Storage::deleteDirectory("public/".$user->username);
 
         $user->delete();
 
