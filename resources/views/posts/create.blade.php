@@ -15,12 +15,19 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     Create post
                     <div>
-                        <form action="{{route('posts.store')}}" method="POST" id="createPostForm">
+                        <form action="{{route('posts.store')}}" method="POST" id="createPostForm" enctype="multipart/form-data">
                             @csrf
                             <div class="flex flex-col">
                                 <label for="heading">Heading</label>
                                 <input value="{{old("heading")}}" name="heading" id="heading" type="text" class="rounded-lg">
                                 @error("heading")
+                                <p class="text-red-600">{{$message}}</p>
+                                @enderror
+                            </div>
+                            <div class="flex flex-col mt-3">
+                                <label for="cover_image">Cover image</label>
+                                <input value="{{old("cover_image")}}" name="cover_image" id="cover_image" type="file" accept=".png, .jpg, .jpeg" class="border border-solid border-black p-1 rounded-lg">
+                                @error("cover_image")
                                 <p class="text-red-600">{{$message}}</p>
                                 @enderror
                             </div>
