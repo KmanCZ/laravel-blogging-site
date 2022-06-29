@@ -90,12 +90,17 @@ class PostController extends Controller
             abort(403, 'Unauthorized Action');
         }
 
-        $formFields = request()->validate([
+        $validatedData = request()->validate([
             "content" => ["required", "string"],
-            "tags" => ["required", "string"]
+            "tags" => ["required", "string"],
+            "cover_image" => ["image", "dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000", "max:5000"]
         ]);
 
-        $post->update($formFields);
+        if(request()->hasFile("cover_image")) {
+            $validatedData["cover_image"] = request()->file("cover_image")->storeAs(auth()->user()->username, $post->slug, "public");
+        }
+
+        $post->update($validatedData);
 
         return redirect(route("posts.show", ["post" => $post->slug, "user" => auth()->user()]));
     }
