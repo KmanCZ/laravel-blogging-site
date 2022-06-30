@@ -50,7 +50,8 @@ class PostController extends Controller
             "heading" => ["required", "unique:posts,heading", "string", 'max:255'],
             "content" => ["required", "string"],
             "tags" => ["required", "string"],
-            "cover_image" => ["image", "dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000", "max:5000"]
+            "cover_image" => ["image", "dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000", "max:5000"],
+            "public" => ["required", "boolean"]
         ]);
 
         $validatedData["slug"] = Str::slug($validatedData["heading"]);
