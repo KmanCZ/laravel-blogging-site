@@ -68,6 +68,10 @@ class PostController extends Controller
 
     //Show specific post
     public function show(User $user, Post $post) {
+        if($post->public != 1 && (!auth()->check() || $user->id != auth()->user()->id)) {
+            return abort(403, 'Unauthorized Action');
+        }
+
         return view("posts.show", [
             "post" => $post,
             "comments" => $post->comments()->latest()->paginate(20)
