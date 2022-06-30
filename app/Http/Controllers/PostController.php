@@ -14,7 +14,7 @@ class PostController extends Controller
     //Index page with all the posts
     public function index() {
         return view("posts.index", [
-            "posts" => Post::latest()->paginate(10)
+            "posts" => Post::latest()->where("public", "=", "1")->paginate(10)
         ]);
     }
 
@@ -34,7 +34,7 @@ class PostController extends Controller
     //Serch posts
     public function search() {
         return view("posts.search", [
-            "posts" => Post::latest()->filter(request(["q"]))->paginate(10),
+            "posts" => Post::latest()->filter(request(["q"]))->where("public", "=", "1")->paginate(10),
             "query" => request()->query("q")
         ]);
     }
@@ -138,7 +138,7 @@ class PostController extends Controller
         }
 
         return view("posts.following", [
-            "posts" => Post::whereIn("user_id", $ids)->latest()->paginate(10)
+            "posts" => Post::whereIn("user_id", $ids)->latest()->where("public", "=", "1")->paginate(10)
         ]);
     }
 

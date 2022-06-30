@@ -16,8 +16,15 @@ class UserController extends Controller
 {
     //Shows user profile view
     public function show(User $user) {
+        if(auth()->check() && $user->id == auth()->user()->id) {
+            return view("users.show", [
+                "posts" => Post::where("user_id", "=", $user->id)->orderBy("created_at")->paginate(10),
+                "user" => $user
+            ]);
+        }
+
         return view("users.show", [
-            "posts" => Post::where("user_id", "=" ,$user->id)->orderBy("created_at")->paginate(10),
+            "posts" => Post::where([["user_id", "=", $user->id], ["public", "=", "1"]])->orderBy("created_at")->paginate(10),
             "user" => $user
         ]);
     }
