@@ -3,7 +3,7 @@
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->group(function() {
+Route::middleware(['auth', "verified"])->group(function() {
     //Post Form Route
     Route::get("/posts/create", [PostController::class, "create"])->name("posts.create");
 
