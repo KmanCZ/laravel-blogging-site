@@ -94,7 +94,8 @@ class PostController extends Controller
         $validatedData = request()->validate([
             "content" => ["required", "string"],
             "tags" => ["required", "string"],
-            "cover_image" => ["image", "dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000", "max:5000"]
+            "cover_image" => ["image", "dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000", "max:5000"],
+            "public" => ["required", "boolean"]
         ]);
 
         if(request()->hasFile("cover_image")) {
