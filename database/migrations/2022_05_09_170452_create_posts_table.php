@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("slug");
             $table->longText("content");
             $table->string("tags");
+            $table->boolean("public");
             $table->timestamps();
         });
     }
