@@ -48,8 +48,12 @@
                                 <p class="text-red-600">{{$message}}</p>
                                 @enderror
                             </div>
-                            <div class="flex flex-col mt-3">
-                                <button class="mt-3 border-solid border-2 border-black rounded-full p-1 hover:bg-slate-400" type="submit">Submit</button>
+                            <div class="flex flex-row mt-3">
+                                <button class="border-solid border-2 border-black rounded-full p-1 mr-2 hover:bg-slate-400 w-full" type="submit">Submit</button>
+                                <select class="rounded-lg" name="public" id="public">
+                                    <option value="1" {{ (old("public") == 1 ? "selected":"") }}>Public</option>
+                                    <option value="0" {{ (old("public") == 0 && !is_null(old("public")) ? "selected":"") }}>Private</option>
+                                </select>
                             </div>
                         </form>
                     </div>

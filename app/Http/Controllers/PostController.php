@@ -14,7 +14,7 @@ class PostController extends Controller
     //Index page with all the posts
     public function index() {
         return view("posts.index", [
-            "posts" => Post::latest()->paginate(10)
+            "posts" => Post::latest()->where("public", "=", "1")->paginate(10)
         ]);
     }
 
@@ -34,7 +34,7 @@ class PostController extends Controller
     //Serch posts
     public function search() {
         return view("posts.search", [
-            "posts" => Post::latest()->filter(request(["q"]))->paginate(10),
+            "posts" => Post::latest()->filter(request(["q"]))->where("public", "=", "1")->paginate(10),
             "query" => request()->query("q")
         ]);
     }
@@ -50,7 +50,8 @@ class PostController extends Controller
             "heading" => ["required", "unique:posts,heading", "string", 'max:255'],
             "content" => ["required", "string"],
             "tags" => ["required", "string"],
-            "cover_image" => ["image", "dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000", "max:5000"]
+            "cover_image" => ["image", "dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000", "max:5000"],
+            "public" => ["required", "boolean"]
         ]);
 
         $validatedData["slug"] = Str::slug($validatedData["heading"]);
@@ -67,6 +68,10 @@ class PostController extends Controller
 
     //Show specific post
     public function show(User $user, Post $post) {
+        if($post->public != 1 && (!auth()->check() || $user->id != auth()->user()->id)) {
+            return abort(403, 'Unauthorized Action');
+        }
+
         return view("posts.show", [
             "post" => $post,
             "comments" => $post->comments()->latest()->paginate(20)
@@ -93,7 +98,8 @@ class PostController extends Controller
         $validatedData = request()->validate([
             "content" => ["required", "string"],
             "tags" => ["required", "string"],
-            "cover_image" => ["image", "dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000", "max:5000"]
+            "cover_image" => ["image", "dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000", "max:5000"],
+            "public" => ["required", "boolean"]
         ]);
 
         if(request()->hasFile("cover_image")) {
@@ -132,7 +138,7 @@ class PostController extends Controller
         }
 
         return view("posts.following", [
-            "posts" => Post::whereIn("user_id", $ids)->latest()->paginate(10)
+            "posts" => Post::whereIn("user_id", $ids)->latest()->where("public", "=", "1")->paginate(10)
         ]);
     }
 

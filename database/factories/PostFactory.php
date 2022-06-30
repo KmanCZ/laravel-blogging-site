@@ -24,7 +24,8 @@ class PostFactory extends Factory
             "heading" => $heading,
             "slug" => $slug,
             "content" => $this->faker->paragraph(6),
-            "tags" => "Laravel, PHP, MySQL"
+            "tags" => "Laravel, PHP, MySQL",
+            "public" => true
         ];
     }
 }

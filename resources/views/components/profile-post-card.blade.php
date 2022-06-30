@@ -20,12 +20,19 @@
         </div>
         @auth
         @if ($post->user->id == auth()->user()->id)
-        <div class="flex items-center">
-            <div><a href="{{route('posts.edit', ['post'=>$post->slug, "user" => $post->user])}}" class="inline-block rounded-lg bg-blue-500 text-white hover:bg-blue-700 py-1 px-3">Edit</a></div>
-            <form action="{{route('posts.destroy', ['post'=>$post->slug])}}" method="POST" class="ml-2">
-                @csrf
-                @method("DELETE")
-                <button type="submit" class="inline-block rounded-lg bg-red-500 text-white hover:bg-red-700 py-1 px-3">Delete</button>
+        <div class="flex flex-col justify-end items-end">
+            <div class="flex items-center gap-2 mb-1">
+                <div><a href="{{route('posts.edit', ['post'=>$post->slug, "user" => $post->user])}}" class="inline-block rounded-lg bg-blue-500 text-white hover:bg-blue-700 py-1 px-3">Edit</a></div>
+                <form action="{{route('posts.destroy', ['post'=>$post->slug])}}" method="POST">
+                    @csrf
+                    @method("DELETE")
+                    <button type="submit" class="inline-block rounded-lg bg-red-500 text-white hover:bg-red-700 py-1 px-3">Delete</button>
+            </div>
+            @unless ($post->public)
+            <p class="text-gray-500 mt-1">
+                Private
+            </p>
+            @endunless
         </div>
         @endif
         @endauth
