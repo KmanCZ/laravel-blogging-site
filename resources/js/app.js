@@ -35,7 +35,7 @@ const editor = new Editor({
             })
                 .then((res) => {
                     callback(
-                        `https://dev-to-uploads.s3.amazonaws.com/${res.data}`,
+                        `https://lara-blogging-site.s3.amazonaws.com/${res.data}`,
                         document.querySelector("#toastuiAltTextInput").value
                     );
                 })
