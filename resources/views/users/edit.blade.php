@@ -34,7 +34,7 @@
                             <label for="profile_picture">Profile picture</label>
                             <div class="flex w-full">
                                 <span class="w-fit">
-                                    <img id="pfp-preview" class="w-10 h-10 mr-2 rounded-full inline-block" src="{{asset("storage/". auth()->user()->profile_picture)}}" alt="profile picture">
+                                    <img id="pfp-preview" class="w-10 h-10 mr-2 rounded-full inline-block" src="{{Storage::url(auth()->user()->profile_picture)}}" alt="profile picture">
                                 </span>
                                 <input name="profile_picture" id="profile_picture" type="file" accept=".png, .jpg, .jpeg" class="inline-block border border-solid border-black p-1 rounded-lg w-full">
                             </div>

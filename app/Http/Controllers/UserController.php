@@ -43,7 +43,7 @@ class UserController extends Controller
         ]);
 
         if(request()->hasFile("profile_picture")) {
-            $userInfo["profile_picture"] = request()->file("profile_picture")->storeAs(auth()->user()->username, "profile_picture", "public");
+            $userInfo["profile_picture"] = request()->file("profile_picture")->storeAs(auth()->user()->username, "profile_picture", "s3");
         }
 
         User::find(auth()->user()->id)->update($userInfo);
