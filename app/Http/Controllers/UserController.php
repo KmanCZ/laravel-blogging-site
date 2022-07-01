@@ -69,7 +69,7 @@ class UserController extends Controller
             "password" => ['required', new MatchOldPassword, Rules\Password::defaults()]
         ]);
 
-        Storage::deleteDirectory("public/".$user->username);
+        Storage::deleteDirectory($user->username);
 
         $user->delete();
 
