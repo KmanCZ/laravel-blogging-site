@@ -4,7 +4,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->group(function() {
+Route::middleware(['auth', "verified"])->group(function() {
     //Create Comment Route
     Route::post("/{user}/{post}/comments", [CommentController::class, "store"])->name("comments.create");
 
