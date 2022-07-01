@@ -4,7 +4,7 @@
 <div x-data="{ open: true }">
     <div x-show="open" class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 mx-10">
         <div class="p-6 bg-white border-b border-gray-200">
-            <div class="font-bold text-lg"><img class="w-7 h-7 mr-1 rounded-full inline-block" src="{{asset("storage/". $comment->user->profile_picture)}}" alt="profile picture">{{$comment->user->name}}:</div>
+            <div class="font-bold text-lg"><img class="w-7 h-7 mr-1 rounded-full inline-block" src="{{Storage::url($comment->user->profile_picture)}}" alt="profile picture">{{$comment->user->name}}:</div>
             <div>{{$comment->content}}</div>
         </div>
         <div class="flex justify-end mr-5 my-2">

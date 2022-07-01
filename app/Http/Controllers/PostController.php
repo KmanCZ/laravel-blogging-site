@@ -58,7 +58,7 @@ class PostController extends Controller
         $validatedData["user_id"] = auth()->user()->id;
 
         if(request()->hasFile("cover_image")) {
-            $validatedData["cover_image"] = request()->file("cover_image")->storeAs(auth()->user()->username, $validatedData["slug"], "public");
+            $validatedData["cover_image"] = request()->file("cover_image")->storeAs(auth()->user()->username, $validatedData["slug"], "s3");
         }
 
         Post::create($validatedData);
@@ -103,7 +103,7 @@ class PostController extends Controller
         ]);
 
         if(request()->hasFile("cover_image")) {
-            $validatedData["cover_image"] = request()->file("cover_image")->storeAs(auth()->user()->username, $post->slug, "public");
+            $validatedData["cover_image"] = request()->file("cover_image")->storeAs(auth()->user()->username, $post->slug, "s3");
         }
 
         $post->update($validatedData);

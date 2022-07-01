@@ -3,7 +3,7 @@
 
 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-2">
     @unless (is_null($post->cover_image))
-    <img src="{{asset("storage/". $post->cover_image)}}" class="max-h-48 w-full object-fill">
+    <img src="{{Storage::url($post->cover_image)}}" class="max-h-48 w-full object-fill">
     @endunless
     <div class="flex justify-between p-6 bg-white border-b border-gray-200">
         <div class="flex flex-col">
