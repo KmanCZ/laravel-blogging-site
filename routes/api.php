@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Save Imaga Route
-Route::middleware(["auth:api", "verified"])->post("/posts/image", [PostController::class, "image"])->name("posts.image");
+Route::middleware("auth:api")->post("/posts/image", [PostController::class, "image"])->name("posts.image");

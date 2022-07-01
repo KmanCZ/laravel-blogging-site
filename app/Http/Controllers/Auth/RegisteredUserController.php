@@ -52,6 +52,6 @@ class RegisteredUserController extends Controller
         Auth::login($user);
         $user->generateAndSaveApiAuthToken();
 
-        return redirect(route("verification.notice"));
+        return redirect(RouteServiceProvider::HOME);
     }
 }
