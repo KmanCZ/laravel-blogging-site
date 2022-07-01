@@ -25,7 +25,7 @@ class PostController extends Controller
         ]);
 
         if(request()->hasFile("image")) {
-            $userInfo["image"] = request()->file("image")->storeAs(auth("api")->user()->username, Str::random(10), "public");
+            $userInfo["image"] = request()->file("image")->storeAs(auth("api")->user()->username, Str::random(10), "s3");
         }
 
         return $userInfo["image"];

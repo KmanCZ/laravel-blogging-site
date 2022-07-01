@@ -25,7 +25,7 @@ const editor = new Editor({
 
             axios({
                 method: "POST",
-                url: `http://127.0.0.1:8000/api/posts/image?api_token=${apiToken}`,
+                url: `https://lara-blogging-site.herokuapp.com/api/posts/image?api_token=${apiToken}`,
                 processData: false,
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -35,7 +35,7 @@ const editor = new Editor({
             })
                 .then((res) => {
                     callback(
-                        `http://127.0.0.1:8000/storage/${res.data}`,
+                        `https://dev-to-uploads.s3.amazonaws.com/${res.data}`,
                         document.querySelector("#toastuiAltTextInput").value
                     );
                 })
