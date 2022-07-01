@@ -7,7 +7,7 @@
             {{$post->heading}}
         </h2>
         <p>
-            by<a class="hover:underline" href="{{route("users.show", ["user" => $post->user])}}"><img class="w-7 h-7 mr-1 ml-2 rounded-full inline-block" src="{{asset("storage/". $post->user->profile_picture)}}" alt="profile picture">{{$post->user->name}}</a>
+            by<a class="hover:underline" href="{{route("users.show", ["user" => $post->user])}}"><img class="w-7 h-7 mr-1 ml-2 rounded-full inline-block" src="{{Storage::url($post->user->profile_picture)}}" alt="profile picture">{{$post->user->name}}</a>
         </p>
         <x-tags :tags="$post->tags" />
     </x-slot>
